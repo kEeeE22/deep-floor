@@ -1,0 +1,15 @@
+Flask
+numpy
+opencv-python
+Flask-WTF
+matplotlib
+requests
+scipy
+torch
+torchvision
+tqdm
+tensorflow
+Pillow
+matplotlib
+scikit-image
+pandas
