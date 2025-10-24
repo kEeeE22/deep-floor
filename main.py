@@ -164,13 +164,13 @@ def main(args):
         if args.earlystop:
             early_stopping(running_loss_val,model)
         else:
-            torch.save(model.state_dict(),f'log/store2/checkpoint_{datetime.strftime('%d-%m-%Y_%H-%M-%S')}.pt')
+            torch.save(model.state_dict(),f"log/store2/checkpoint.pt")
         
         if args.earlystop:
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
-    model.load_state_dict(torch.load(f'log/store2/checkpoint_{datetime.strftime('%d-%m-%Y_%H-%M-%S')}.pt'))
+    model.load_state_dict(torch.load(f"log/store2/checkpoint.pt"))
     
     return model
 
