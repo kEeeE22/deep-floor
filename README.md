@@ -5,9 +5,8 @@
 
 [I get dataset from here](https://github.com/zlzeng/DeepFloorplan.git)
 
-
 ## How to run?
-1. Install packages. 
+1. Install packages. (python 3.12.12)
 ```
 pip install -r requirements.txt
 ```
