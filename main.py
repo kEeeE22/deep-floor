@@ -103,6 +103,9 @@ def getloader(args):
 
 def main(args):
     device,model,optimizer = setup(args)
+    print(device)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log = f"log/store2/checkpoint_{timestamp}.pt"
     train_loader,valid_loader,total_image,total_batch = getloader(args)
     if args.earlystop:
         early_stopping = EarlyStopping(patience=args.patience,verbose=True)
@@ -126,7 +129,7 @@ def main(args):
             # optimize
             optimizer.step()
             
-            if idx%20 == 0:
+            if idx%2 == 0:
                 print('[INFO] Batch {}/{:d} Train Loss: {:.1f}, R Loss: {:.1f}, B Loss: {:.1f}'.format(idx,int(total_batch*(1-args.valsplit)),loss.item(),loss1.item(),loss2.item()))
 
             # statistics
@@ -164,13 +167,13 @@ def main(args):
         if args.earlystop:
             early_stopping(running_loss_val,model)
         else:
-            torch.save(model.state_dict(),f"log/store2/checkpoint.pt")
+            torch.save(model.state_dict(), log)
         
         if args.earlystop:
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
-    model.load_state_dict(torch.load(f"log/store2/checkpoint.pt"))
+    model.load_state_dict(torch.load(log))
     
     return model
 
