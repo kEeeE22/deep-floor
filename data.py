@@ -35,16 +35,20 @@ class r3dDataset(Dataset):
                             dtype=np.uint8, sep=',').reshape(self.size, self.size)
         return image,boundary,room,door
     def __getitem__(self,idx):
-        image,boundary,room,door = self._getset(idx)
-        #image,boundary,room,door = self.rotation(image,boundary,room,door)
-        if self.transform:
-            image = self.transform(image.astype(np.float32)/255.0)
-            boundary = self.transform(F.one_hot(
-                torch.LongTensor(boundary),3).numpy())
-            room = self.transform(F.one_hot(
-                torch.LongTensor(room),9).numpy())
-            door = self.transform(door)
-        return image,boundary,room,door
+        try:
+            image,boundary,room,door = self._getset(idx)
+            #image,boundary,room,door = self.rotation(image,boundary,room,door)
+            if self.transform:
+                image = self.transform(image.astype(np.float32)/255.0)
+                boundary = self.transform(F.one_hot(
+                    torch.LongTensor(boundary),3).numpy())
+                room = self.transform(F.one_hot(
+                    torch.LongTensor(room),9).numpy())
+                door = self.transform(door)
+            return image,boundary,room,door
+        except Exception as e:
+            print(f"Error at index {idx}: {e}")
+            return torch.zeros((3, 512, 512)), 0
 
 if __name__ == "__main__":
 
