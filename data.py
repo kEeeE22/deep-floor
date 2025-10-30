@@ -5,7 +5,7 @@ from skimage.transform import rotate
 from torch.utils.data import Dataset, DataLoader
 
 class MyRotationTransform:
-    def __init__(self,angles=[0,90,-90.180]):
+    def __init__(self,angles=[0,90,-90,180]):
         self.angles = angles
     def _r(self,x,angle):
         return rotate(x,angle,preserve_range=True)
