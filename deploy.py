@@ -70,6 +70,10 @@ def main(args):
         # postprocess
         predroom = post_process(predroom,predboundary)
     rgb = ind2rgb(predroom,color_map=floorplan_fuse_map)
+    predboundary = ind2rgb(predboundary,
+                                color_map=floorplan_boundary_map)
+    cv2.imwrite(f'./log/pred/pred_room.png',rgb[:,:,::-1])
+    cv2.imwrite(f'./log/pred/pred_boundary.png',predboundary)
     # plot
     plt.subplot(1,3,1); plt.imshow(orig[:,:,::-1])
     plt.subplot(1,3,2); plt.imshow(rgb)
